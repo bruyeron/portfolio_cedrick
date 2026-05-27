@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Cat, Mail, Heart, Code2 } from 'lucide-react';
+import { Mail, Heart, Code2 } from 'lucide-react';
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export function Footer() {
