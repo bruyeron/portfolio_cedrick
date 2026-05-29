@@ -5,19 +5,22 @@ import { Skills } from './components/Skills';
 import { Timeline } from './components/Timeline';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navigation />
-      <main>
-        <Hero />
-        <Projects />
-        <Skills />
-        <Timeline />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+      <LanguageProvider>
+        <div className="min-h-screen bg-white dark:bg-gray-900">
+          <Navigation />
+          <main>
+            <Hero />
+            <Projects />
+            <Skills />
+            <Timeline />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </LanguageProvider>
   );
 }

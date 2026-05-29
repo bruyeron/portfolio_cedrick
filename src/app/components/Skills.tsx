@@ -1,9 +1,10 @@
 import { motion } from 'motion/react';
 import { Code2, Database, Wrench, Lightbulb } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const skillCategories = [
+const getSkillCategories = (t: any) => [
   {
-    title: 'Frontend',
+    title: t.skills.frontend,
     icon: Code2,
     color: 'from-blue-500 to-cyan-500',
     skills: [
@@ -15,8 +16,9 @@ const skillCategories = [
       { name: 'React Native', level: 15 },
     ],
   },
+
   {
-    title: 'Backend',
+    title: t.skills.backend,
     icon: Database,
     color: 'from-purple-500 to-pink-500',
     skills: [
@@ -28,8 +30,9 @@ const skillCategories = [
       { name: 'REST APIs', level: 95 },
     ],
   },
+
   {
-    title: 'Tools & DevOps',
+    title: t.skills.tools,
     icon: Wrench,
     color: 'from-orange-500 to-red-500',
     skills: [
@@ -41,8 +44,9 @@ const skillCategories = [
       { name: 'Linux', level: 90 },
     ],
   },
+
   {
-    title: 'Other Skills',
+    title: t.skills.otherSkills,
     icon: Lightbulb,
     color: 'from-green-500 to-emerald-500',
     skills: [
@@ -57,9 +61,17 @@ const skillCategories = [
 ];
 
 export function Skills() {
+  const { t } = useLanguage();
+
+  const skillCategories = getSkillCategories(t);
+
   return (
-    <section id="skills" className="py-20 md:py-32 bg-gray-800">
+    <section
+      id="skills"
+      className="py-20 md:py-32 bg-gray-800"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,15 +82,18 @@ export function Skills() {
         >
           <div className="flex items-center justify-center gap-2 mb-4">
             <Code2 className="w-6 h-6 text-purple-500" />
+
             <span className="text-sm uppercase tracking-wider text-purple-500 font-semibold">
               Expertise
             </span>
           </div>
+
           <h2 className="text-4xl md:text-5xl mb-4 text-white">
-            Skills & Technologies
+            {t.skills.title}
           </h2>
+
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Comprehensive skill set covering modern web development technologies
+            {t.skills.subtitle}
           </p>
         </motion.div>
 
@@ -90,25 +105,41 @@ export function Skills() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+              transition={{
+                duration: 0.6,
+                delay: categoryIndex * 0.1,
+              }}
               className="bg-gray-900 rounded-xl p-8 border border-gray-700 hover:border-gray-600 transition-colors"
             >
+
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-6">
-                <div className={`p-3 rounded-lg bg-gradient-to-br ${category.color}`}>
+                <div
+                  className={`p-3 rounded-lg bg-gradient-to-br ${category.color}`}
+                >
                   <category.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl text-white">{category.title}</h3>
+
+                <h3 className="text-2xl text-white">
+                  {category.title}
+                </h3>
               </div>
 
               {/* Skills List */}
               <div className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skill.name}>
+
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-300">{skill.name}</span>
-                      <span className="text-sm text-gray-500">{skill.level}%</span>
+                      <span className="text-gray-300">
+                        {skill.name}
+                      </span>
+
+                      <span className="text-sm text-gray-500">
+                        {skill.level}%
+                      </span>
                     </div>
+
                     <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
@@ -116,7 +147,9 @@ export function Skills() {
                         viewport={{ once: true }}
                         transition={{
                           duration: 1,
-                          delay: categoryIndex * 0.1 + skillIndex * 0.05,
+                          delay:
+                            categoryIndex * 0.1 +
+                            skillIndex * 0.05,
                           ease: 'easeOut',
                         }}
                         className={`h-full bg-gradient-to-r ${category.color} rounded-full`}
@@ -134,13 +167,27 @@ export function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.4,
+          }}
           className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {[
-            { number: '1+', label: 'Years Experience' },
-            { number: '10+', label: 'Projects Completed' },
-            { number: 'Kelysisa', label: 'Happy Clients' },
+            {
+              number: '1+',
+              label: t.skills.stats.experience,
+            },
+
+            {
+              number: '10+',
+              label: t.skills.stats.projects,
+            },
+
+            {
+              number: 'Kelysisa',
+              label: t.skills.stats.clients,
+            },
           ].map((stat, index) => (
             <div
               key={stat.label}
@@ -159,7 +206,10 @@ export function Skills() {
               >
                 {stat.number}
               </motion.div>
-              <div className="text-gray-400">{stat.label}</div>
+
+              <div className="text-gray-400">
+                {stat.label}
+              </div>
             </div>
           ))}
         </motion.div>

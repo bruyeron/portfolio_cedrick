@@ -1,8 +1,11 @@
 import { motion } from 'motion/react';
-import { Mail, Heart, Code2 } from 'lucide-react';
+import { Mail, Heart } from 'lucide-react';
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useLanguage } from '../contexts/LanguageContext';
+import LogoImg from "../../assets/logo_cedrick-sansbg.png";
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -26,13 +29,6 @@ export function Footer() {
     },
   ];
 
-  const quickLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -42,8 +38,16 @@ export function Footer() {
     }
   };
 
+  const quickLinks = [
+    { name: t.nav.home, href: '#hero' },
+    { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.skills, href: '#skills' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.contact, href: '#contact' },
+  ];
+
   return (
-    <footer className="bg-gray-950 border-t border-gray-800">
+    <footer className="bg-gray-950 dark:bg-gray-950 bg-gray-100 border-t border-gray-800 dark:border-gray-800 border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
@@ -53,21 +57,32 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-2 rounded-lg">
-                <Code2 className="w-6 h-6 text-white" />
+            <motion.a
+              href="#hero"
+              onClick={(e) => scrollToSection(e, '#hero')}
+              className="flex items-center group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="bg-none">
+                <img
+                  src={LogoImg}
+                  alt="Logo"
+                  className="w-24 h-24 object-contain"
+                />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                DevPortfolio
+
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Cedrick Bruyeron
               </span>
-            </div>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              Fullstack Developer passionate about creating exceptional digital experiences with modern technologies.
+            </motion.a>
+            <p className="text-gray-400 dark:text-gray-400 text-gray-600 mb-4 leading-relaxed">
+              {t.footer.description}
             </p>
-            <div className="flex items-center gap-1 text-gray-400">
+            <div className="flex items-center gap-1 text-gray-400 dark:text-gray-400 text-gray-600">
               <span>Made with</span>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-              <span>by Cedrick Bruyeron</span>
+              <span>by {t.hero.name}</span>
             </div>
           </motion.div>
 
@@ -78,14 +93,14 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 className="text-lg mb-4 text-white">Quick Links</h3>
+            <h3 className="text-lg mb-4 text-white dark:text-white text-gray-900">{t.footer.quickLinks}</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
+                    className="text-gray-400 dark:text-gray-400 text-gray-600 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-0 h-0.5 bg-blue-500 group-hover:w-4 transition-all" />
                     {link.name}
@@ -102,8 +117,8 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-lg mb-4 text-white">Connect</h3>
-            <p className="text-gray-400 mb-4">
+            <h3 className="text-lg mb-4 text-white dark:text-white text-gray-900">{t.footer.connect}</h3>
+            <p className="text-gray-400 dark:text-gray-400 text-gray-600 mb-4">
               Let's connect and discuss your next project!
             </p>
             <div className="flex gap-3">
@@ -115,7 +130,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 ${color} transition-colors border border-gray-700 hover:border-gray-600`}
+                  className={`w-10 h-10 bg-gray-800 dark:bg-gray-800 bg-white rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-400 text-gray-700 ${color} transition-colors border border-gray-700 dark:border-gray-700 border-gray-300 hover:border-gray-600 dark:hover:border-gray-600 hover:border-gray-400`}
                   aria-label={name}
                 >
                   <Icon className="w-5 h-5" />
@@ -131,17 +146,17 @@ export function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="pt-8 border-t border-gray-800"
+          className="pt-8 border-t border-gray-800 dark:border-gray-800 border-gray-200"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
             <p>
-              © {currentYear} Cedrick Bruyeron. All rights reserved.
+              © {currentYear} {t.hero.name}. {t.footer.rights}
             </p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
                 Terms of Service
               </a>
             </div>
